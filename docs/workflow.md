@@ -80,7 +80,7 @@ magick /tmp/pages-ch03/page-001.jpg -gravity South -crop 100%x25%+0+0 +repage /t
 - 正文括号统一全角（）；原书印半角的也统一为全角。
 - 原书自身误植**照录不擅改**，加 HTML 注释 `<!-- 疑：原书作「x」 -->`；OCR 讹误据原书改正并加 `<!-- 校：OCR 作「x」 -->`。校勘注释不会进入 EPUB（构建时剥离）。
 - 参考书目、思考题及正文中的编号条目（`1.` `2.` …）照原书编号**逐条成段**，行首数字统一转义为 `1\.`，避免被 pandoc 解析成 `<ol>`（原书即普通编号段落，各章渲染须一致）。
-- 插图：原书插图共 24 幅，图版一律从略（删 `![](images/…)`），**保留图注**为独立段落，前加一行 `<!-- 案：原书此处有插图，图版从略，仅存图注 -->`（注释构建时剥离，EPUB 中只见图注文字）。
+- 插图：原书插图共 29 幅，全部以 `![图注](assets/images/chNN-名称.jpg)` 形式内嵌（pandoc implicit_figures 渲染为 figure+figcaption，样式见 `assets/epub.css`）。图片基线取自 OCR 提取的扫描版，已逐幅联网比对、能找到同一幅图更高清版本的 20 幅已替换为清晰版（来源见 git 记录）；替换铁律是「必须同一构图的同一幅照片/画作，不得换同题材另一张」。原书图注一律照录，图注问题加 `<!-- 审校/疑：… -->` 注于图片行之后。
 - 删除杂质：页眉（「中国近现代史」「第X章 …」+ 页码）、页底页码；合并跨页断段（含 OCR 分片边界处）。正文圈码替换为 `^[注文]` 后须删除圈码本身，不得残留 `①^[…]` 并存。
 - 段落之间空行分隔；删除行内多余全角空格、tab。
 
@@ -92,7 +92,7 @@ magick /tmp/pages-ch03/page-001.jpg -gravity South -crop 100%x25%+0+0 +repage /t
 grep -n '\[[0-9]' manuscript/chNN.md        # 必须无输出（无 [n] 残留；^[1980年…] 类以数字开头的注文是误报，人工看一眼）
 grep -n "$(printf '\t')" manuscript/chNN.md # 必须无输出（无 tab；macOS 的 grep 没有 -P）
 grep -o '\^\[' manuscript/chNN.md | wc -l   # 该章脚注总数
-grep -n '!\[' manuscript/chNN.md            # 必须无输出（无图片残留）
+grep -n '!\[' manuscript/chNN.md            # 仅允许 assets/images/ 插图引用，不得残留 ocr/ 下的 images/<hash>.jpg 路径
 ```
 
 不要运行 `make build`（全书未齐时构建无意义）；不要改动 `manuscript/` 以外的任何文件。
