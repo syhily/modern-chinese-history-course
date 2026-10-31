@@ -12,7 +12,7 @@
 | --- | --- |
 | `manuscript/00-frontmatter.md` | 前置部分（电子版说明、书名页、版权信息） |
 | `manuscript/chNN.md` | 十三章正文（**所有修改都在对应文件里进行**），构建时按文件名序合并 |
-| `manuscript/14-postscript.md` | 后记（含各章作者及单位名单） |
+| `manuscript/ch14-postscript.md` | 后记（含各章作者及单位名单） |
 | `metadata.yaml` | pandoc 元数据（书名、编者、出版社、ISBN） |
 | `assets/epub.css` | EPUB 样式（正文用阅读器默认字体；标题黑体 / 引文楷体 / 扉页仿宋；边框表格、表题样式） |
 | `assets/cover.jpg` | 封面图（以同系列《中国古代史教程》封面版式为基，按本书封面配色与文字重绘，生成脚本见 `scripts/make_cover.py`） |
